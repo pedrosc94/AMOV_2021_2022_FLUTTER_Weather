@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:
+          const MyHomePage(title: 'API KEY: 3b09cbb2ef231ade475e05cffd7d018b'),
     );
   }
 }
