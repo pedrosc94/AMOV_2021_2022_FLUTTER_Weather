@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/models/weather.dart';
+import 'package:weather/splash.dart';
 import 'api/api.dart';
 
 void main() {
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'MyHomePageTitle'),
+      home: const Splash(),
     );
   }
 }
@@ -63,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
   )*/
 
   final weather = null; // = Weather.fromJson(getWeatherByName("Coimbra"));
-
   //
   //
 
@@ -104,18 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Text(
-              weather.name +
-                  " - lat(" +
-                  weather.coord.lat.toString() +
-                  "), lon(" +
-                  weather.coord.lon.toString() +
-                  ")",
-            ),
-            Text("Temperature: " +
-                weather.main.temp.toString() +
-                " Feels like: " +
-                weather.main.feelsLike.toString()),
+        //    Text(
+        //      weather.name +
+      //            " - lat(" +
+       //           weather.coord.lat.toString() +
+        //          "), lon(" +
+       //           weather.coord.lon.toString() +
+      //            ")",
+      //      ),
+       //     Text("Temperature: " +
+     //           weather.main.temp.toString() +
+       //         " Feels like: " +
+      //          weather.main.feelsLike.toString()),
           ],
         ),
       ),
