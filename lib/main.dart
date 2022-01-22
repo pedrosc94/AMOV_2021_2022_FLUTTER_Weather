@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/models/weather.dart';
+import 'api/api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,8 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:
-          const MyHomePage(title: 'API KEY: 3b09cbb2ef231ade475e05cffd7d018b'),
+      home: const MyHomePage(title: 'MyHomePageTitle'),
     );
   }
 }
@@ -53,6 +54,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //
+  // TESTING
+  /*
+    FutureBuilder<String>(
+    future: getWeatherByName("Coimbra"),
+    builder:(BuildContext context , AsyncSnapshot<String>)
+  )*/
+
+  final weather = null; // = Weather.fromJson(getWeatherByName("Coimbra"));
+
+  //
+  //
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -76,28 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -107,9 +104,22 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Text(
+              weather.name +
+                  " - lat(" +
+                  weather.coord.lat.toString() +
+                  "), lon(" +
+                  weather.coord.lon.toString() +
+                  ")",
+            ),
+            Text("Temperature: " +
+                weather.main.temp.toString() +
+                " Feels like: " +
+                weather.main.feelsLike.toString()),
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
