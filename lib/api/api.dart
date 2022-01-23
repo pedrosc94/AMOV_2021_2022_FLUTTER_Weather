@@ -15,7 +15,7 @@ const unit = "metric"; // doing nothing for now
 const lang = "pt"; // doing nothing for now
 
 Future<Map<String, dynamic>>? getWeatherByName(String cityName) async {
-  var url = api + "weather?q=" + cityName + "&" + key;
+  var url = api + "weather?q=" + cityName + "&units=" + unit + "&" + key;
   print(url);
 
   var urlResult = await http.get(Uri.parse(url));
@@ -25,7 +25,7 @@ Future<Map<String, dynamic>>? getWeatherByName(String cityName) async {
 }
 
 Future<Map<String, dynamic>>? getWeatherByCoords(var lat, var lon) async {
-  var url = api + "weather?" + lat + "&" + lon + "&" + key;
+  var url = api + "weather?" + lat + "&" + lon + "&units=" + unit + "&" + key;
   var urlResult = await http.get(Uri.parse(url));
 
   Map<String, dynamic> result = jsonDecode(urlResult.body);
@@ -33,7 +33,7 @@ Future<Map<String, dynamic>>? getWeatherByCoords(var lat, var lon) async {
 }
 
 Future<Map<String, dynamic>>? getForecastByCoords(var lat, var lon) async {
-  var url = api + "forecast?" + lat + "&" + lon + "&" + key;
+  var url = api + "forecast?" + lat + "&" + lon + "&units=" + unit + "&" + key;
   var urlResult = await http.get(Uri.parse(url));
 
   Map<String, dynamic> result = jsonDecode(urlResult.body);
