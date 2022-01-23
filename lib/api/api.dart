@@ -14,11 +14,13 @@ const key = "appid=3b09cbb2ef231ade475e05cffd7d018b";
 const unit = "metric"; // doing nothing for now
 const lang = "pt"; // doing nothing for now
 
-Future<Map> getWeatherByName(String cityName) async {
-  var url = api + "weather?" + cityName + "&" + key;
+Future<Map<String, dynamic>>? getWeatherByName(String cityName) async {
+  var url = api + "weather?q=" + cityName + "&" + key;
+  print(url);
+
   var urlResult = await http.get(Uri.parse(url));
 
-  Map result = jsonDecode(urlResult.body);
+  Map<String, dynamic> result = jsonDecode(urlResult.body);
   return result;
 }
 

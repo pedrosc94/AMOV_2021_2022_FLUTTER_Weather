@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/models/weather.dart';
-import 'package:weather/splash.dart';
 import 'api/api.dart';
 
 void main() {
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home: const MyHomePage(title: 'MyHomePageTitle'),
     );
   }
 }
@@ -57,14 +56,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //
   // TESTING
-  /*
-    FutureBuilder<String>(
-    future: getWeatherByName("Coimbra"),
-    builder:(BuildContext context , AsyncSnapshot<String>)
-  )*/
-
-  final weather = null; // = Weather.fromJson(getWeatherByName("Coimbra"));
-  //
   //
 
   int _counter = 0;
@@ -92,39 +83,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-        //    Text(
-        //      weather.name +
-      //            " - lat(" +
-       //           weather.coord.lat.toString() +
-        //          "), lon(" +
-       //           weather.coord.lon.toString() +
-      //            ")",
-      //      ),
-       //     Text("Temperature: " +
-     //           weather.main.temp.toString() +
-       //         " Feels like: " +
-      //          weather.main.feelsLike.toString()),
-          ],
-        ),
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: FutureBuilder<Map<String, dynamic>>(
+          future: getWeatherByName("Coimbra"),
+          builder: (context, snapshot) {
+            if (snapshot.hasError)
+              return Text(snapshot.error.toString());
+            else if (snapshot.hasData) {
+              Weather w = Weather.fromMap(snapshot.data!);
+              //return Text(snapshot.data.toString());
+              return Text("API Request was Sucessfull!");
+            } else
+              return CircularProgressIndicator();
+          }),
     );
   }
 }
