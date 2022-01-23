@@ -24,6 +24,7 @@ import 'package:weather/models/weather.dart';
 import 'package:weather/views/splash.dart';
 import 'package:weather/views/second_route.dart';
 import 'package:weather/views/third_route.dart';
+import 'package:weather/views/fourth_route.dart';
 // Tools
 import 'package:weather/tools/tools.dart';
 //========================================================================================
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splash(),
         '/second': (context) => SecondRoute(),
         '/third': (context) => ThirdRoute(),
+        '/fourth': (context) => FourthRoute()
       },
     );
   }
@@ -111,21 +113,27 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
           children: <Widget>[
           RaisedButton(
-            child: Text('Click Me!'),
+            child: Text('Second Screen'),
             onPressed: () {
               Navigator.pushNamed(context, '/second');
             },
           ),
           RaisedButton(
-            child: Text('Tap Me!'),
+            child: Text('Weather for Coimbra'),
             onPressed: () {
               Navigator.pushNamed(context, '/third');
             },
           ),
-            FutureBuilder<String>(
-              future: initPlatformState(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return Text('Last update ${prefs.getString("date")}');
+          RaisedButton(
+            child: Text('Weather for Current Location'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/fourth');
+            },
+          ),
+          FutureBuilder<String>(
+            future: initPlatformState(),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            return Text('Last update ${prefs.getString("date")}');
               },
             ),
           ],
