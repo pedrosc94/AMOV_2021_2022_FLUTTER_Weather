@@ -16,7 +16,6 @@ const lang = "pt"; // doing nothing for now
 
 Future<Map<String, dynamic>>? getWeatherByName(String cityName) async {
   var url = api + "weather?q=" + cityName + "&" + key;
-  print(url);
 
   var urlResult = await http.get(Uri.parse(url));
 
@@ -24,26 +23,30 @@ Future<Map<String, dynamic>>? getWeatherByName(String cityName) async {
   return result;
 }
 
-getWeatherByCoords(var lat, var lon) async {
+Future<Map<String, dynamic>>? getWeatherByCoords(var lat, var lon) async {
   var url = api + "weather?" + lat + "&" + lon + "&" + key;
   var urlResult = await http.get(Uri.parse(url));
 
-  var result = jsonDecode(urlResult.body);
+  Map<String, dynamic> result = jsonDecode(urlResult.body);
   return result;
 }
 
-getForecastByName(String cityName) async {
-  var url = api + "forecast?" + cityName + "&" + key;
+Future<Map<String, dynamic>>? getForecastByCoords(var lat, var lon) async {
+  var url = api +
+      "onecall?" +
+      lat +
+      "&" +
+      lon +
+      "&exclude=current,minutely,hourly" +
+      key;
   var urlResult = await http.get(Uri.parse(url));
 
-  var result = jsonDecode(urlResult.body);
+  Map<String, dynamic> result = jsonDecode(urlResult.body);
   return result;
 }
 
-getForecastByCoords(var lat, var lon) async {
-  var url = api + "forecast?" + lat + "&" + lon + "&" + key;
-  var urlResult = await http.get(Uri.parse(url));
-
-  var result = jsonDecode(urlResult.body);
-  return result;
-}
+/*
+Future<Map<String, dynamic>>? getForecastByName(String cityName) async {
+  // TODO
+  return getForecastByCoords(lat, lon);
+}*/
