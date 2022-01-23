@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // Location
 import 'package:location/location.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 // Shared Preferences
 import 'package:shared_preferences/shared_preferences.dart';
 //========================================================================================
@@ -69,8 +70,25 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+late SharedPreferences prefs;
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  Future<String> initPlatformState() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getString('version') != version)
+    {
+      prefs.setString('date', DateTime.now().toString());
+      prefs.setString('version', version);
+    }
+
+    return version;
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -91,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
           child: Column(
-        children: <Widget>[
+          children: <Widget>[
           RaisedButton(
             child: Text('Click Me!'),
             onPressed: () {
@@ -104,7 +122,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.pushNamed(context, '/third');
             },
           ),
-        ],
+            FutureBuilder<String>(
+              future: initPlatformState(),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return Text('Last update ${prefs.getString("date")}');
+              },
+            ),
+          ],
       )),
     );
   }

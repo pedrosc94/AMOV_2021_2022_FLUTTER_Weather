@@ -1,7 +1,9 @@
 import 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SecondRoute extends StatelessWidget {
 
@@ -9,6 +11,7 @@ class SecondRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Click Me Page"),
@@ -37,7 +40,7 @@ class SecondRoute extends StatelessWidget {
                   onPressed: (){
                 Navigator.pop(context);
               },
-              child: Text('Back'))
+              child: Text('Back')),
             ]
         ),
       ),
