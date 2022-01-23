@@ -30,13 +30,16 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
-  intl: ^0.17.0
   location: ^4.3.0
   shared_preferences: ^2.0.12
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -50,7 +53,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

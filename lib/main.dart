@@ -5,6 +5,8 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/models/weather.dart';
 import 'api/api.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n//app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      onGenerateTitle: (context){
+        var t = AppLocalizations.of(context);
+
+        return t!.appTitle;
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -30,7 +36,16 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'MyHomePageTitle'),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('pt', '')
+        ],
+        home: const MyHomePage(title: 'MyHomePageTitle'),
     );
   }
 }
