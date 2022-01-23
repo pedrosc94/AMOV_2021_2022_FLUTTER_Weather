@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/splash.dart';
+import 'package:weather/tools/tools.dart';
 import 'package:weather/models/weather.dart';
 import 'api/api.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n//app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,11 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context){
-        var t = AppLocalizations.of(context);
-
-        return t!.appTitle;
-      },
+      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -36,16 +32,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: const [
-          Locale('en', ''),
-          Locale('pt', '')
-        ],
-        home: const MyHomePage(title: 'MyHomePageTitle'),
+      home: const Splash(),
+      localizationsDelegates: const [],
+      supportedLocales: const [Locale('en', ''), Locale('pt', '')],
     );
   }
 }
@@ -105,8 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
               return Text(snapshot.error.toString());
             else if (snapshot.hasData) {
               Weather w = Weather.fromMap(snapshot.data!);
-              //return Text(snapshot.data.toString());
-              return Text("API Request was Sucessfull!");
+              print(getUTC(1642960800));
+              return Text(snapshot.data.toString());
+              //return Text("API Request was Sucessfull!");
             } else
               return CircularProgressIndicator();
           }),
