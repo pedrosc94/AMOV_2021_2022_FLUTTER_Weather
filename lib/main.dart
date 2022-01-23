@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/generated/l10n.dart';
 import 'package:weather/models/weather.dart';
 import 'api/api.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n//app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +18,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateTitle: (context){
-        var t = AppLocalizations.of(context);
 
-        return t!.appTitle;
-      },
+    return MaterialApp(
+      title: S.current.appTitle,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -37,14 +34,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
         localizationsDelegates: const [
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate
         ],
-        supportedLocales: const [
-          Locale('en', ''),
-          Locale('pt', '')
-        ],
+        supportedLocales: S.delegate.supportedLocales,
         home: const MyHomePage(title: 'MyHomePageTitle'),
     );
   }
