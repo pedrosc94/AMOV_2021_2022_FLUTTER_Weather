@@ -5,10 +5,12 @@ import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // Location
 import 'package:location/location.dart';
+import 'generated/l10n.dart';
 // Shared Preferences
 import 'package:shared_preferences/shared_preferences.dart';
 // Our Files
 import 'package:weather/api/api.dart';
+
 import 'package:weather/tools/tools.dart';
 import 'package:weather/models/weather.dart';
 import 'package:weather/splash.dart';
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: S.current.appTitle,
       theme: ThemeData(
         // This is the theme of your application.
         //
