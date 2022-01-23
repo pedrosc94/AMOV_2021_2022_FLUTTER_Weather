@@ -12,7 +12,7 @@ class SecondRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Click Me Page"),
+        title: Text("Weather for Location"),
         backgroundColor: Colors.green,
       ),
       body: Center(
@@ -44,14 +44,14 @@ class SecondRoute extends StatelessWidget {
                             return Text(snapshot.error.toString());
                           else if (snapshot.hasData) {
                             Weather w = Weather.fromMap(snapshot.data!);
-                            print("Hello");
-                            return Text(snapshot.data.toString());
+                            print(w.main.temp.toString());
+                            return Text(w.main.temp.toString());
                             //return Text("API Request was Sucessfull!");
                           } else
                             return CircularProgressIndicator();
                         });
                   },
-                  child: Text('Back')),
+                  child: Text('Update')),
             ]),
       ),
     );

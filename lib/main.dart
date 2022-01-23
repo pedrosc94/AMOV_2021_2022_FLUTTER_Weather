@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
           children: <Widget>[
           RaisedButton(
-            child: Text('Second Screen'),
+            child: Text('Weather for Location'),
             onPressed: () {
               Navigator.pushNamed(context, '/second');
             },
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           RaisedButton(
-            child: Text('Weather for Current Location'),
+            child: Text('Not working'),
             onPressed: () {
               Navigator.pushNamed(context, '/fourth');
             },
