@@ -1,3 +1,6 @@
+//========================================================================================
+// Flutter
+//========================================================================================
 // Default Material
 import 'package:flutter/material.dart';
 // Locale
@@ -5,15 +8,24 @@ import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // Location
 import 'package:location/location.dart';
-import 'generated/l10n.dart';
 // Shared Preferences
 import 'package:shared_preferences/shared_preferences.dart';
-// Our Files
-import 'package:weather/api/api.dart';
+//========================================================================================
 
-import 'package:weather/tools/tools.dart';
+//========================================================================================
+// Our Files
+//========================================================================================
+// API
+import 'package:weather/api/api.dart';
+// Models
 import 'package:weather/models/weather.dart';
-import 'package:weather/splash.dart';
+// Views
+import 'package:weather/views/splash.dart';
+import 'package:weather/views/second_route.dart';
+import 'package:weather/views/third_route.dart';
+// Tools
+import 'package:weather/tools/tools.dart';
+//========================================================================================
 
 void main() {
   runApp(const MyApp());
@@ -26,25 +38,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: S.current.appTitle,
+      title: "Title",
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      home: const MyHomePage(title: 'MyHomePageTitle'),
+      routes: {
+        '/': (context) => const Splash(),
+        '/second': (context) => SecondRoute(),
+        '/third': (context) => ThirdRoute(),
+      },
     );
   }
 }
@@ -68,12 +70,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //
-  // TESTING
-  //
-
   int _counter = 0;
-
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -87,29 +84,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('WeatherApp'),
+        backgroundColor: Colors.green,
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-          future: getWeatherByName("Coimbra"),
-          builder: (context, snapshot) {
-            if (snapshot.hasError)
-              return Text(snapshot.error.toString());
-            else if (snapshot.hasData) {
-              Weather w = Weather.fromMap(snapshot.data!);
-              print(getUTC(1642960800));
-              return Text(snapshot.data.toString());
-              //return Text("API Request was Sucessfull!");
-            } else
-              return CircularProgressIndicator();
-          }),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text('Click Me!'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/second');
+            },
+          ),
+          RaisedButton(
+            child: Text('Tap Me!'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/third');
+            },
+          ),
+        ],
+      )),
     );
   }
 }
