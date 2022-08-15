@@ -1,16 +1,10 @@
-// OPEN WEATHER - API KEY: 3b09cbb2ef231ade475e05cffd7d018b
-//
-// Current -> &weather
-// Forecast 5 Day / 3 Hour -> &forecast
-//
-// http://api.openweathermap.org/data/2.5/weather?q={city name}&appid=3b09cbb2ef231ade475e05cffd7d018b
-// http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=3b09cbb2ef231ade475e05cffd7d018b
-//
+// OPEN WEATHER - API
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 const api = "http://api.openweathermap.org/data/2.5/";
-const key = "appid=3b09cbb2ef231ade475e05cffd7d018b";
+const key = "appid=";
 const unit = "metric"; // doing nothing for now
 const lang = "pt"; // doing nothing for now
 
